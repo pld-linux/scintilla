@@ -6,6 +6,7 @@ Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://dl.sf.net/scintilla/scintilla153.tgz
+# Source0-md5:	fd83f5efeb0084bd68fe30116489637f
 URL:		http://scintilla.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
