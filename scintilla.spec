@@ -1,11 +1,11 @@
-Summary:	-
+Summary:	Free source code editing component for Win32 and GTK+
 Summary(pl):	-
 Name:		scintilla
 Version:	1.53
 Release:	1
 License:	BSD-like
 Group:		Libraries
-Source0:	http://scintilla.org/scintilla153.tgz
+Source0:	http://dl.sf.net/scintilla/scintilla153.tgz
 URL:		http://scintilla.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
