@@ -5,8 +5,8 @@
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl):	Wolnodostêpna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
-Version:	1.53
-Release:	2
+Version:	1.58
+Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/scintilla153.tgz
@@ -84,13 +84,13 @@ Statyczna biblioteka scintilla.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 %{__make} -C gtk install \
 	libdir="%{_libdir}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_includedir}/scintilla
-install include/*.h $RPM_BUILD_ROOT%{_includedir}/scintilla
+install include/*.h $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
