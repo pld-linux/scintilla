@@ -1,16 +1,17 @@
 #
 # Conditional build:
-%bcond_with gtk1	# use GTK+ 1.2 instead of 2.0
+%bcond_with	gtk1	# use GTK+ 1.2 instead of 2.0
 #
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl):	Wolnodostêpna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
 Version:	1.58
-Release:	1
+%define	fver	%(echo %{version} | tr -d .)
+Release:	2
 License:	BSD-like
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/%{name}/scintilla153.tgz
-# Source0-md5:	fd83f5efeb0084bd68fe30116489637f
+Source0:	http://dl.sourceforge.net/scintilla/%{name}%{fver}.tgz
+# Source0-md5:	385226367e398c81f8f9d4df587ea088
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
 %{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
