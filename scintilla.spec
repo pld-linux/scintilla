@@ -5,13 +5,13 @@
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl):	Wolnodostêpna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
-Version:	1.58
+Version:	1.61
 %define	fver	%(echo %{version} | tr -d .)
-Release:	2
+Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/scintilla/%{name}%{fver}.tgz
-# Source0-md5:	385226367e398c81f8f9d4df587ea088
+# Source0-md5:	a7691bf93ab07fe4426c458605cff35e
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
 %{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
@@ -49,7 +49,7 @@ fontów.
 Summary:	scintilla header files
 Summary(pl):	Pliki nag³ówkowe scintilli
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 %{?with_gtk1:Requires:	gtk+-devel >= 1.2.0}
 %{!?with_gtk1:Requires:	gtk+2-devel >= 2.0.0}
 
@@ -63,7 +63,7 @@ Pliki nag³ówkowe scintilli.
 Summary:	Static scintilla library
 Summary(pl):	Statyczna biblioteka scintilla
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static scintilla library.
@@ -78,6 +78,7 @@ Statyczna biblioteka scintilla.
 %build
 %{__make} -C gtk \
 	CC="%{__cxx}" \
+	CCOMP="%{__cc}" \
 	OPTFLAGS="%{rpmcflags}" \
 	libdir="%{_libdir}" \
 	%{?debug:DEBUG=1} \
