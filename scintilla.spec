@@ -78,6 +78,7 @@ Statyczna biblioteka scintilla.
 %{__make} -C gtk \
 	CC="%{__cxx}" \
 	OPTFLAGS="%{rpmcflags}" \
+	libdir="%{_libdir}" \
 	%{?debug:DEBUG=1} \
 	%{!?with_gtk1:GTK2=1}
 
@@ -85,6 +86,7 @@ Statyczna biblioteka scintilla.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} -C gtk install \
+	libdir="%{_libdir}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_includedir}/scintilla
