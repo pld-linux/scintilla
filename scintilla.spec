@@ -6,7 +6,7 @@ Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl):	Wolnodostêpna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
 Version:	1.53
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/scintilla153.tgz
