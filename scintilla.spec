@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _with_gtk1	- use GTK+ 1.2 instead of 2.0
+%bcond_with gtk1	# use GTK+ 1.2 instead of 2.0
 #
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl):	Wolnodostêpna kontrolka edycyjna dla GTK+ i Win32
@@ -9,12 +9,12 @@ Version:	1.53
 Release:	1
 License:	BSD-like
 Group:		Libraries
+Source0:	http://dl.sourceforge.net/%{name}/scintilla153.tgz
 # Source0-md5:	fd83f5efeb0084bd68fe30116489637f
-Source0:	http://dl.sf.net/scintilla/scintilla153.tgz
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
-%{?_with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
-%{!?_with_gtk1:BuildRequires:	gtk+2-devel >= 2.0.0}
+%{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
+%{!?with_gtk1:BuildRequires:	gtk+2-devel >= 2.0.0}
 BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -49,8 +49,8 @@ Summary:	scintilla header files
 Summary(pl):	Pliki nag³ówkowe scintilli
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
-%{?_with_gtk1:Requires:	gtk+-devel >= 1.2.0}
-%{!?_with_gtk1:Requires:	gtk+2-devel >= 2.0.0}
+%{?with_gtk1:Requires:	gtk+-devel >= 1.2.0}
+%{!?with_gtk1:Requires:	gtk+2-devel >= 2.0.0}
 
 %description devel
 scintilla header files.
@@ -79,7 +79,7 @@ Statyczna biblioteka scintilla.
 	CC="%{__cxx}" \
 	OPTFLAGS="%{rpmcflags}" \
 	%{?debug:DEBUG=1} \
-	%{!?_with_gtk1:GTK2=1}
+	%{!?with_gtk1:GTK2=1}
 
 %install
 rm -rf $RPM_BUILD_ROOT
