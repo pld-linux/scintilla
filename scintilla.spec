@@ -11,7 +11,7 @@ Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/scintilla/%{name}%{fver}.tgz
-# Source0-md5:	e4210181700a1188e83d0355316c4723
+# Source0-md5:	9122e70a41181f0b2e54e19f8236c68b
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
 %{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
