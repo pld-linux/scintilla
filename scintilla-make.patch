@@ -71,11 +71,11 @@
 +	ScintillaBase.lo ContractionState.lo Editor.lo ExternalLexer.lo PropSet.lo PlatGTK.lo \
 +	KeyMap.lo LineMarker.lo ScintillaGTK.lo CellBuffer.lo ViewStyle.lo \
 +	RESearch.lo Style.lo Indicator.lo AutoComplete.lo UniConversion.lo XPM.lo $(LEXOBJS)
-+	libtool --mode=link $(CC) -o $@ $^ -rpath /usr/lib `$(LIBCONFIG)`
++	libtool --mode=link $(CC) -o $@ $^ -rpath $(libdir) `$(LIBCONFIG)`
 +
 +install: $(COMPLIB)
-+	install -d $(DESTDIR)/usr/lib
-+	libtool --mode=install install $(COMPLIB) $(DESTDIR)/usr/lib
++	install -d $(DESTDIR)$(libdir)
++	libtool --mode=install install $(COMPLIB) $(DESTDIR)$(libdir)
  
  # Automatically generate header dependencies with "make deps"
  include deps.mak
