@@ -17,6 +17,8 @@ URL:		http://scintilla.org/
 %{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
 %{!?with_gtk1:BuildRequires:	gtk+2-devel >= 1:2.0.0}
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
