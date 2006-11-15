@@ -53,7 +53,7 @@ Summary(pl):	Pliki nag³ówkowe scintilli
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %{?with_gtk1:Requires:	gtk+-devel >= 1.2.0}
-%{!?with_gtk1:Requires:	gtk+2-devel >= 2.0.0}
+%{!?with_gtk1:Requires:	gtk+2-devel >= 1:2.0.0}
 Requires:	libstdc++-devel
 
 %description devel
