@@ -3,7 +3,7 @@
 %bcond_with	gtk1	# use GTK+ 1.2 instead of 2.0
 #
 Summary:	Free source code editing component for GTK+ and Win32
-Summary(pl.UTF-8):   Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
+Summary(pl.UTF-8):	Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
 Version:	1.71
 %define	fver	%(echo %{version} | tr -d .)
@@ -49,7 +49,7 @@ fontów.
 
 %package devel
 Summary:	scintilla header files
-Summary(pl.UTF-8):   Pliki nagłówkowe scintilli
+Summary(pl.UTF-8):	Pliki nagłówkowe scintilli
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %{?with_gtk1:Requires:	gtk+-devel >= 1.2.0}
@@ -64,7 +64,7 @@ Pliki nagłówkowe scintilli.
 
 %package static
 Summary:	Static scintilla library
-Summary(pl.UTF-8):   Statyczna biblioteka scintilla
+Summary(pl.UTF-8):	Statyczna biblioteka scintilla
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
