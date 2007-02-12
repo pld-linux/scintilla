@@ -3,7 +3,7 @@
 %bcond_with	gtk1	# use GTK+ 1.2 instead of 2.0
 #
 Summary:	Free source code editing component for GTK+ and Win32
-Summary(pl):	WolnodostÍpna kontrolka edycyjna dla GTK+ i Win32
+Summary(pl.UTF-8):   Wolnodostƒôpna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
 Version:	1.71
 %define	fver	%(echo %{version} | tr -d .)
@@ -33,23 +33,23 @@ breakpoints and the current line. Styling choices are more open than with
 many editors, allowing the use of proportional fonts, bold and italics,
 multiple foreground and background colours and multiple fonts.
 
-%description -l pl
-Scintilla to wolnodostÍpna kontrolka do edycji kodu. Przychodzi z
-pe≥nym kodem ºrÛd≥owym i licencja pozwalaj±c± na uøywanie w dowolnym
-projekcie darmowym lub komercyjnym. OprÛcz moøliwo∂ci obecnych w
+%description -l pl.UTF-8
+Scintilla to wolnodostƒôpna kontrolka do edycji kodu. Przychodzi z
+pe≈Çnym kodem ≈∫r√≥d≈Çowym i licencja pozwalajƒÖcƒÖ na u≈ºywanie w dowolnym
+projekcie darmowym lub komercyjnym. Opr√≥cz mo≈ºliwo≈õci obecnych w
 standardowych kontrolkach do edycji tekstu, Scintilla ma dodatkowe,
-przydatne szczegÛlnie przy edycji i szukaniu b≥ÍdÛw w kodzie
-ºrÛd≥owym. Moøliwo∂ci te obejmuj± obs≥ugÍ stylu sk≥adni, pod∂wietlanie
-b≥ÍdÛw, dope≥nianie kodu i podpowiedzi. Marginesy mog± zawieraÊ
-znaczniki podobne do tych uøywanych do oznaczenia breakpointÛw lub
-bieø±cej linii w debuggerach. WybÛr stylu jest bardziej otwarty niø w
-wielu edytorach, pozwalaj±c na uøycie fontÛw proporcjonalnych,
-pogrubionych i pochylonych, wielu kolorÛw pisma i t≥a oraz wielu
-fontÛw.
+przydatne szczeg√≥lnie przy edycji i szukaniu b≈Çƒôd√≥w w kodzie
+≈∫r√≥d≈Çowym. Mo≈ºliwo≈õci te obejmujƒÖ obs≈Çugƒô stylu sk≈Çadni, pod≈õwietlanie
+b≈Çƒôd√≥w, dope≈Çnianie kodu i podpowiedzi. Marginesy mogƒÖ zawieraƒá
+znaczniki podobne do tych u≈ºywanych do oznaczenia breakpoint√≥w lub
+bie≈ºƒÖcej linii w debuggerach. Wyb√≥r stylu jest bardziej otwarty ni≈º w
+wielu edytorach, pozwalajƒÖc na u≈ºycie font√≥w proporcjonalnych,
+pogrubionych i pochylonych, wielu kolor√≥w pisma i t≈Ça oraz wielu
+font√≥w.
 
 %package devel
 Summary:	scintilla header files
-Summary(pl):	Pliki nag≥Ûwkowe scintilli
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe scintilli
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %{?with_gtk1:Requires:	gtk+-devel >= 1.2.0}
@@ -59,19 +59,19 @@ Requires:	libstdc++-devel
 %description devel
 scintilla header files.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe scintilli.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe scintilli.
 
 %package static
 Summary:	Static scintilla library
-Summary(pl):	Statyczna biblioteka scintilla
+Summary(pl.UTF-8):   Statyczna biblioteka scintilla
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static scintilla library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka scintilla.
 
 %prep
