@@ -1,21 +1,16 @@
-#
-# Conditional build:
-%bcond_with	gtk1	# use GTK+ 1.2 instead of 2.0
-#
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl.UTF-8):	Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
-Version:	2.01
+Version:	2.11
 %define	fver	%(echo %{version} | tr -d .)
 Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/scintilla/%{name}%{fver}.tgz
-# Source0-md5:	3eeb4f5ccf11292ed3a332fd995a788e
+# Source0-md5:	266d1cb01a31fa070fb1855d10c60185
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
-%{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
-%{!?with_gtk1:BuildRequires:	gtk+2-devel >= 1:2.0.0}
+BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
@@ -52,8 +47,7 @@ Summary:	scintilla header files
 Summary(pl.UTF-8):	Pliki nagłówkowe scintilli
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-%{?with_gtk1:Requires:	gtk+-devel >= 1.2.0}
-%{!?with_gtk1:Requires:	gtk+2-devel >= 1:2.0.0}
+Requires:	gtk+2-devel >= 1:2.0.0
 Requires:	libstdc++-devel
 
 %description devel
@@ -85,8 +79,7 @@ rm -r doc/CVS
 	CCOMP="%{__cc}" \
 	OPTFLAGS="%{rpmcflags}" \
 	libdir="%{_libdir}" \
-	%{?debug:DEBUG=1} \
-	%{!?with_gtk1:GTK2=1}
+	%{?debug:DEBUG=1}
 
 %install
 rm -rf $RPM_BUILD_ROOT
