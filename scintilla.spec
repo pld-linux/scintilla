@@ -1,13 +1,13 @@
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl.UTF-8):	Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
-Version:	2.11
+Version:	2.27
 %define	fver	%(echo %{version} | tr -d .)
 Release:	1
 License:	BSD-like
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/scintilla/%{name}%{fver}.tgz
-# Source0-md5:	266d1cb01a31fa070fb1855d10c60185
+Source0:	http://downloads.sourceforge.net/scintilla/%{name}%{fver}.tgz
+# Source0-md5:	f8a4175cb24d24dee32b05400aaea6ce
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
@@ -21,12 +21,13 @@ Scintilla is a free source code editing component. It comes with
 complete source code and a license that permits use in any free
 project or commercial product. As well as features found in standard
 text editing components, Scintilla includes features especially useful
-when editing and debugging source code. These include support for syntax
-styling, error indicators, code completion and call tips. The selection
-margin can contain markers like those used in debuggers to indicate
-breakpoints and the current line. Styling choices are more open than with
-many editors, allowing the use of proportional fonts, bold and italics,
-multiple foreground and background colours and multiple fonts.
+when editing and debugging source code. These include support for
+syntax styling, error indicators, code completion and call tips. The
+selection margin can contain markers like those used in debuggers to
+indicate breakpoints and the current line. Styling choices are more
+open than with many editors, allowing the use of proportional fonts,
+bold and italics, multiple foreground and background colours and
+multiple fonts.
 
 %description -l pl.UTF-8
 Scintilla to wolnodostępna kontrolka do edycji kodu. Przychodzi z
@@ -71,7 +72,6 @@ Statyczna biblioteka scintilla.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
-rm -r doc/CVS
 
 %build
 %{__make} -C gtk \
