@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
 Version:	2.27
 %define	fver	%(echo %{version} | tr -d .)
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/scintilla/%{name}%{fver}.tgz
