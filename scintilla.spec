@@ -1,17 +1,17 @@
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl.UTF-8):	Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
-Version:	2.27
+Version:	2.29
 %define	fver	%(echo %{version} | tr -d .)
-Release:	7
+Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/scintilla/%{name}%{fver}.tgz
-# Source0-md5:	f8a4175cb24d24dee32b05400aaea6ce
+# Source0-md5:	a450f34190bceb6ed3b9847f2c25736b
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:4.1
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
