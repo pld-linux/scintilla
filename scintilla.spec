@@ -1,17 +1,17 @@
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl.UTF-8):	Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
-Version:	2.29
+Version:	3.5.1
 %define	fver	%(echo %{version} | tr -d .)
 Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/scintilla/%{name}%{fver}.tgz
-# Source0-md5:	a450f34190bceb6ed3b9847f2c25736b
+# Source0-md5:	f390d60422e5245bc26c6a1fde24ff43
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
-BuildRequires:	gtk+2-devel >= 1:2.0.0
-BuildRequires:	libstdc++-devel >= 6:4.1
+BuildRequires:	gtk+3-devel >= 3.0
+BuildRequires:	libstdc++-devel >= 6:4.3
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -48,7 +48,7 @@ Summary:	scintilla header files
 Summary(pl.UTF-8):	Pliki nagłówkowe scintilli
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+2-devel >= 1:2.0.0
+Requires:	gtk+3-devel >= 3.0
 Requires:	libstdc++-devel
 
 %description devel
@@ -75,8 +75,9 @@ Statyczna biblioteka scintilla.
 
 %build
 %{__make} -C gtk \
-	CC="%{__cxx}" \
-	CCOMP="%{__cc}" \
+	CC="%{__cc}" \
+	CXX="%{__cxx}" \
+	GTK3=1 \
 	OPTFLAGS="%{rpmcflags}" \
 	libdir="%{_libdir}" \
 	%{?debug:DEBUG=1}
@@ -101,7 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc License.txt doc/*
 %attr(755,root,root) %{_libdir}/libscintilla.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libscintilla.so.0
+%attr(755,root,root) %ghost %{_libdir}/libscintilla.so.3
 
 %files devel
 %defattr(644,root,root,755)

@@ -1,5 +1,5 @@
---- scintilla/gtk/makefile.orig	2011-05-02 11:11:17.000000000 +0200
-+++ scintilla/gtk/makefile	2011-06-23 10:07:29.202630717 +0200
+--- scintilla/gtk/makefile.orig	2014-08-10 01:52:02.000000000 +0200
++++ scintilla/gtk/makefile	2014-11-15 19:41:59.482473066 +0100
 @@ -6,7 +6,7 @@
  # Builds for GTK+ 2 and no longer supports GTK+ 1.
  # Also works with ming32-make on Windows.
@@ -7,8 +7,8 @@
 -.SUFFIXES: .cxx .c .o .h .a
 +.SUFFIXES: .cxx .c .o .h .a .lo .la
  ifdef CLANG
+ CXX = clang++ -Wno-deprecated-register
  CC = clang
- CCOMP = clang
 @@ -36,7 +36,7 @@
  COMPLIB=..\bin\scintilla.a
  else
@@ -18,56 +18,63 @@
  endif
  
  vpath %.h ../src ../include ../lexlib
-@@ -55,22 +55,27 @@
- endif
+@@ -56,26 +56,31 @@
  
  ifdef DEBUG
--CXXFLAGS=-DDEBUG -g $(CXXBASEFLAGS) $(THREADFLAGS)
-+CXXFLAGS=-DDEBUG $(OPTFLAGS) $(CXXBASEFLAGS) $(THREADFLAGS)
+ ifdef CLANG
+-CTFLAGS=-DDEBUG -g -fsanitize=$(SANITIZE) $(CXXBASEFLAGS) $(THREADFLAGS)
++CTFLAGS=-DDEBUG $(OPTFLAGS) -fsanitize=$(SANITIZE) $(CXXBASEFLAGS) $(THREADFLAGS)
  else
--CXXFLAGS=-DNDEBUG -Os $(CXXBASEFLAGS) $(THREADFLAGS)
-+CXXFLAGS=-DNDEBUG $(OPTFLAGS) $(CXXBASEFLAGS) $(THREADFLAGS)
+-CTFLAGS=-DDEBUG -g $(CXXBASEFLAGS) $(THREADFLAGS)
++CTFLAGS=-DDEBUG $(OPTFLAGS) $(CXXBASEFLAGS) $(THREADFLAGS)
+ endif
+ else
+-CTFLAGS=-DNDEBUG -Os $(CXXBASEFLAGS) $(THREADFLAGS)
++CTFLAGS=-DNDEBUG $(OPTFLAGS) $(CXXBASEFLAGS) $(THREADFLAGS)
  endif
  
- CFLAGS:=$(CXXFLAGS)
+ CFLAGS:=$(CTFLAGS)
+ CXXTFLAGS:=--std=c++0x $(CTFLAGS)
  
  CONFIGFLAGS:=$(shell pkg-config --cflags $(GTKVERSION))
 -MARSHALLER=scintilla-marshal.o
 +MARSHALLER=scintilla-marshal.lo
  
  .cxx.o:
- 	$(CC) $(CONFIGFLAGS) $(CXXFLAGS) -c $<
+ 	$(CXX) $(CONFIGFLAGS) $(CXXTFLAGS) $(CXXFLAGS) -c $<
  .c.o:
- 	$(CCOMP) $(CONFIGFLAGS) $(CFLAGS) -w -c $<
+ 	$(CC) $(CONFIGFLAGS) $(CFLAGS) -w -c $<
  
 -LEXOBJS:=$(addsuffix .o,$(basename $(notdir $(wildcard ../lexers/Lex*.cxx))))
 +.cxx.lo:
-+	libtool --tag=CXX --mode=compile $(CC) $(CONFIGFLAGS) $(CXXFLAGS) -c $<
++	libtool --tag=CXX --mode=compile $(CXX) $(CONFIGFLAGS) $(CXXTFLAGS) $(CXXFLAGS) -c $<
 +.c.lo:
-+	libtool --tag=CC --mode=compile $(CCOMP) $(CONFIGFLAGS) $(CXXFLAGS) -w -c $<
++	libtool --tag=CC --mode=compile $(CC) $(CONFIGFLAGS) $(CFLAGS) -w -c $<
 +
 +LEXOBJS:=$(addsuffix .lo,$(basename $(notdir $(wildcard ../lexers/Lex*.cxx))))
  
  all: $(COMPLIB)
  
-@@ -80,14 +85,17 @@
+@@ -88,15 +93,18 @@
  deps:
- 	$(CC) -MM $(CONFIGFLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
+ 	$(CXX) -MM $(CONFIGFLAGS) $(CXXTFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
  
 -$(COMPLIB): Accessor.o CharacterSet.o LexerBase.o LexerModule.o LexerSimple.o StyleContext.o WordList.o \
--	CharClassify.o Decoration.o Document.o PerLine.o Catalogue.o CallTip.o \
--	ScintillaBase.o ContractionState.o Editor.o ExternalLexer.o PropSetSimple.o PlatGTK.o \
--	KeyMap.o LineMarker.o PositionCache.o ScintillaGTK.o CellBuffer.o ViewStyle.o \
+-	CharClassify.o Decoration.o Document.o PerLine.o Catalogue.o CallTip.o CaseConvert.o CaseFolder.o \
+-	ScintillaBase.o ContractionState.o EditModel.o Editor.o EditView.o ExternalLexer.o MarginView.o \
+-	PropSetSimple.o PlatGTK.o \
+-	KeyMap.o LineMarker.o PositionCache.o ScintillaGTK.o CellBuffer.o CharacterCategory.o ViewStyle.o \
 -	RESearch.o RunStyles.o Selection.o Style.o Indicator.o AutoComplete.o UniConversion.o XPM.o \
 +$(COMPLIB): Accessor.lo CharacterSet.lo LexerBase.lo LexerModule.lo LexerSimple.lo StyleContext.lo WordList.lo \
-+	CharClassify.lo Decoration.lo Document.lo PerLine.lo Catalogue.lo CallTip.lo \
-+	ScintillaBase.lo ContractionState.lo Editor.lo ExternalLexer.lo PropSetSimple.lo PlatGTK.lo \
-+	KeyMap.lo LineMarker.lo PositionCache.lo ScintillaGTK.lo CellBuffer.lo ViewStyle.lo \
++	CharClassify.lo Decoration.lo Document.lo PerLine.lo Catalogue.lo CallTip.lo CaseConvert.lo CaseFolder.lo \
++	ScintillaBase.lo ContractionState.lo EditModel.lo Editor.lo EditView.lo ExternalLexer.lo MarginView.lo \
++	PropSetSimple.lo PlatGTK.lo \
++	KeyMap.lo LineMarker.lo PositionCache.lo ScintillaGTK.lo CellBuffer.lo CharacterCategory.lo ViewStyle.lo \
 +	RESearch.lo RunStyles.lo Selection.lo Style.lo Indicator.lo AutoComplete.lo UniConversion.lo XPM.lo \
  	$(MARSHALLER) $(LEXOBJS)
 -	$(AR) rc $@ $^
 -	$(RANLIB) $@
-+	libtool --tag=CXX --mode=link $(CC) -o $@ $^ -rpath $(libdir) $(shell pkg-config --libs $(GTKVERSION))
++	libtool --tag=CXX --mode=link $(CXX) -o $@ $^ -rpath $(libdir) -version-info 3:0:0 $(shell pkg-config --libs $(GTKVERSION))
 +
 +install: $(COMPLIB)
 +	install -d $(DESTDIR)$(libdir)
