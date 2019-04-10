@@ -14,7 +14,7 @@
  else
  DEL = rm -f
 -COMPLIB=$(srcdir)/../bin/scintilla.a
-+COMPLIB=$(srcdir)/../bin/scintilla.la
++COMPLIB=$(srcdir)/../bin/libscintilla.la
  endif
  
  vpath %.h $(srcdir) $(srcdir)/../src $(srcdir)/../include $(srcdir)/../lexlib
