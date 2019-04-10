@@ -1,17 +1,17 @@
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl.UTF-8):	Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
-Version:	3.5.1
+Version:	3.10.3
 %define	fver	%(echo %{version} | tr -d .)
-Release:	4
+Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/scintilla/%{name}%{fver}.tgz
-# Source0-md5:	f390d60422e5245bc26c6a1fde24ff43
+# Source0-md5:	83db473eee8673970540197c9121c4f6
 Patch0:		%{name}-make.patch
 URL:		http://scintilla.org/
 BuildRequires:	gtk+3-devel >= 3.0
-BuildRequires:	libstdc++-devel >= 6:4.3
+BuildRequires:	libstdc++-devel >= 6:4.8
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -49,7 +49,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe scintilli
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	gtk+3-devel >= 3.0
-Requires:	libstdc++-devel
+Requires:	libstdc++-devel >= 6:4.8
 
 %description devel
 scintilla header files.
@@ -70,7 +70,7 @@ Static scintilla library.
 Statyczna biblioteka scintilla.
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}%{fver}
 %patch0 -p1
 
 %build
