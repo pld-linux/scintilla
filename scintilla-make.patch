@@ -1,5 +1,5 @@
---- scintilla3103/gtk/makefile.orig	2019-04-10 09:45:15.191390693 +0200
-+++ scintilla3103/gtk/makefile	2019-04-10 09:48:56.756857036 +0200
+--- scintilla/gtk/makefile.orig	2019-04-10 07:15:44.649988285 +0200
++++ scintilla/gtk/makefile	2019-04-10 09:41:25.092637245 +0200
 @@ -6,7 +6,7 @@
  # Builds for GTK+ 2 and no longer supports GTK+ 1.
  # Also works with ming32-make on Windows.
@@ -14,11 +14,11 @@
  else
  DEL = rm -f
 -COMPLIB=$(srcdir)/../bin/scintilla.a
-+COMPLIB=$(srcdir)/../bin/libscintilla.la
++COMPLIB=$(srcdir)/../bin/scintilla.la
  endif
  
  vpath %.h $(srcdir) $(srcdir)/../src $(srcdir)/../include $(srcdir)/../lexlib
-@@ -74,28 +74,28 @@
+@@ -74,18 +74,18 @@
  
  ifdef DEBUG
  ifdef CLANG
@@ -33,23 +33,7 @@
 +CTFLAGS=-DNDEBUG $(OPTFLAGS) $(CXXBASEFLAGS) $(THREADFLAGS)
  endif
  
- CXXTFLAGS:=--std=gnu++0x $(CTFLAGS) $(REFLAGS)
- ifdef LPEG_LEXER
- CXXTFLAGS+=-DLPEG_LEXER -I ../src/lua
- LUA_CFLAGS:=-std=c99 -pedantic -Wall -I ../src/lua -DLUA_USE_POSIX -DLUA_USE_DLOPEN
--LUAOBJS:=lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o linit.o \
--         llex.o lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o \
--         ltable.o ltm.o lundump.o lvm.o lzio.o \
--         lauxlib.o lbaselib.o lbitlib.o lcorolib.o ldblib.o liolib.o \
--         lmathlib.o loadlib.o loslib.o lstrlib.o ltablib.o lutf8lib.o \
--         lpcap.o lpcode.o lpprint.o lptree.o lpvm.o
-+LUAOBJS:=lapi.lo lcode.lo lctype.lo ldebug.lo ldo.lo ldump.lo lfunc.lo lgc.lo linit.lo \
-+         llex.lo lmem.lo lobject.lo lopcodes.lo lparser.lo lstate.lo lstring.lo \
-+         ltable.lo ltm.lo lundump.lo lvm.lo lzio.lo \
-+         lauxlib.lo lbaselib.lo lbitlib.lo lcorolib.lo ldblib.lo liolib.lo \
-+         lmathlib.lo loadlib.lo loslib.lo lstrlib.lo ltablib.lo lutf8lib.lo \
-+         lpcap.lo lpcode.lo lpprint.lo lptree.lo lpvm.lo
- endif
+ CXXTFLAGS:=--std=gnu++17 $(CTFLAGS) $(REFLAGS)
  
  CONFIGFLAGS:=$(shell pkg-config --cflags $(GTKVERSION))
 -MARSHALLER=scintilla-marshal.o
@@ -57,23 +41,19 @@
  
  all: $(COMPLIB)
  
-@@ -104,10 +104,12 @@
+@@ -97,6 +97,11 @@
+ .c.o:
+ 	$(CC) $(CONFIGFLAGS) $(CTFLAGS) $(CFLAGS) -w -c $<
  
- .cxx.o:
- 	$(CXX) $(CONFIGFLAGS) $(CXXTFLAGS) $(CXXFLAGS) -c $<
 +.cxx.lo:
 +	libtool --tag=CXX --mode=compile $(CXX) $(CONFIGFLAGS) $(CXXTFLAGS) $(CXXFLAGS) -c $<
- $(MARSHALLER): scintilla-marshal.c
--	$(CC) $(CONFIGFLAGS) $(CTFLAGS) $(CFLAGS) -w -c $<
--$(LUAOBJS): %.o: ../lua/src/%.c
--	$(CC) $(LUA_CFLAGS) $(CFLAGS) -c $<
++.c.lo:
 +	libtool --tag=CC --mode=compile $(CC) $(CONFIGFLAGS) $(CTFLAGS) $(CFLAGS) -w -c $<
-+$(LUAOBJS): %.lo: ../lua/src/%.c
-+	libtool --tag=CC --mode=compile $(CC) $(LUA_CFLAGS) $(CFLAGS) -c $<
- 
++
  GLIB_GENMARSHAL = glib-genmarshal
  GLIB_GENMARSHAL_FLAGS = --prefix=scintilla_marshal
-@@ -117,7 +119,7 @@
+ 
+@@ -105,7 +110,7 @@
  .list.c:
  	$(GLIB_GENMARSHAL) --body $(GLIB_GENMARSHAL_FLAGS) $< > $@
  
@@ -82,7 +62,7 @@
  
  analyze:
  	clang --analyze $(CONFIGFLAGS) $(CXXTFLAGS) $(CXXFLAGS) $(srcdir)/*.cxx $(srcdir)/../src/*.cxx $(srcdir)/../lexlib/*.cxx $(srcdir)/../lexers/*.cxx
-@@ -129,15 +131,18 @@
+@@ -117,15 +122,18 @@
  deps.mak:
  	$(CXX) -MM $(CONFIGFLAGS) $(CXXTFLAGS) $(DEPSRCS) | sed -e 's/\/usr.* //' | grep [a-zA-Z] > $@
  
@@ -98,14 +78,14 @@
 +	PropSetSimple.lo PlatGTK.lo \
 +	KeyMap.lo LineMarker.lo PositionCache.lo ScintillaGTK.lo ScintillaGTKAccessible.lo CellBuffer.lo CharacterCategory.lo ViewStyle.lo \
 +	RESearch.lo RunStyles.lo Selection.lo Style.lo Indicator.lo AutoComplete.lo UniConversion.lo XPM.lo \
- 	$(MARSHALLER) $(LEXOBJS) $(LUAOBJS)
+ 	$(MARSHALLER) $(LEXOBJS)
 -	$(AR) $(ARFLAGS) $@ $^
 -	$(RANLIB) $@
-+	libtool --tag=CXX --mode=link $(CXX) -o $@ $^ -rpath $(libdir) -version-info 3:0:0 $(shell pkg-config --libs $(GTKVERSION))
-+
++	libtool --tag=CXX --mode=link $(CXX) -o $@ $^ -rpath $(libdir) -version-info 4:0:0 $(shell pkg-config --libs $(GTKVERSION))
+ 
 +install: $(COMPLIB)
 +	install -d $(DESTDIR)$(libdir)
 +	libtool --mode=install install $(COMPLIB) $(DESTDIR)$(libdir)
- 
++ 
  # Automatically generate header dependencies with "make deps"
  include deps.mak
