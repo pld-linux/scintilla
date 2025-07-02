@@ -71,7 +71,7 @@ Statyczna biblioteka scintilla.
 
 %prep
 %setup -q -n %{name}%{fver}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__make} -C gtk \
