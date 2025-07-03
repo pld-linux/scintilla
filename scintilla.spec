@@ -1,15 +1,17 @@
 Summary:	Free source code editing component for GTK+ and Win32
 Summary(pl.UTF-8):	Wolnodostępna kontrolka edycyjna dla GTK+ i Win32
 Name:		scintilla
-Version:	3.10.3
+Version:	3.21.1
 %define	fver	%(echo %{version} | tr -d .)
 Release:	1
 License:	BSD-like
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/scintilla/%{name}%{fver}.tgz
-# Source0-md5:	83db473eee8673970540197c9121c4f6
+Source0:	https://downloads.sourceforge.net/scintilla/%{name}%{fver}.tgz
+# Source0-md5:	99ae337cb6e06a50cac099a6f1ec7100
 Patch0:		%{name}-make.patch
-URL:		http://scintilla.org/
+Patch1:		%{name}-glib.patch
+URL:		https://scintilla.org/
+BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gtk+3-devel >= 3.0
 BuildRequires:	libstdc++-devel >= 6:4.8
 BuildRequires:	libtool
@@ -72,6 +74,7 @@ Statyczna biblioteka scintilla.
 %prep
 %setup -q -n %{name}%{fver}
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %{__make} -C gtk \
@@ -90,7 +93,7 @@ install -d $RPM_BUILD_ROOT%{_includedir}/%{name}
 	libdir="%{_libdir}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install include/*.h $RPM_BUILD_ROOT%{_includedir}/%{name}
+cp -p include/*.h $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
